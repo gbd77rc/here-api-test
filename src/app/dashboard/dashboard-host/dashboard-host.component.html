@@ -1,0 +1,58 @@
+<mat-toolbar [ngClass]="'top-bar'">
+    <button mat-icon-button matTooltip="Save Dashboard" class="menu-icon" [disabled]="!needsSaving"
+    (click)="saveDashboard()">
+        <mat-icon>save</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="New Dashboard" class="menu-icon" [disabled]="true">
+        <mat-icon>dashboard</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Set as Default Dashboard" class="menu-icon" [disabled]="true">
+        <mat-icon>lock</mat-icon>
+    </button>
+    <div *ngIf="selectedDashboard">
+        {{selectedDashboard.dashboardName}}
+        <button mat-icon-button [matMenuTriggerFor]="dashboardMenu" matTooltip="Set as Default Dashboard" class="menu-icon">
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #dashboardMenu>
+            <button *ngFor="let dash of dashboards" mat-menu-item (click)="onMenuClick(dash)">
+                <mat-icon>dashboard</mat-icon>
+                <span>{{dash.dashboardName}}</span>
+            </button>
+        </mat-menu>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end">
+        <button mat-icon-button matTooltip="Dashboard Preferences" class="menu-icon" (click)="openDialog()">
+            <mat-icon>settings_applications</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Show/Hide Widgets" class="menu-icon" (click)="widgetNav.toggle()">
+            <mat-icon>widgets</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Fullscreen" class="menu-icon">
+            <mat-icon>fullscreen</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #widgetNav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+        fixedTopGap="56"
+        position="end">
+        <mat-nav-list>
+            <mat-card draggable="true" (dragstart)="dragStartHandler($event, widget)"
+
+            style="text-align: center"
+            *ngFor="let widget of widgets">
+                <img class="avatar no-image-drag" [attr.src]="widget?.icon" />
+                <mat-card-content>
+                    <mat-card-subtitle>{{widget.widgetName}}</mat-card-subtitle>
+                </mat-card-content>
+            </mat-card>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <dashboard *ngIf="selectedDashboard" [dashboard]="selectedDashboard"
+        [preference]="ownerPreference"
+        (canSave)="onDashboardCanSave($event)" ></dashboard>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

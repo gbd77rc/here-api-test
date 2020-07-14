@@ -1,0 +1,11 @@
+<gridster #gridster [options]="options">
+    <ng-container *ngFor="let widget of dashboard.widgets" style="overflow: hidden;">
+        <gridster-item [item]="widget">
+            <dashboard-layout [component]="components[widget.componentRef]"
+            [widget]="widget"
+            (onRemoved)="removeItem(widget)"></dashboard-layout>
+            <!-- [ngComponentOutlet]="components[widget.componentRef]" -->
+
+        </gridster-item>
+    </ng-container>
+</gridster>

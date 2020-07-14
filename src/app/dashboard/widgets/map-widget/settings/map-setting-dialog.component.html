@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>HERE Map Settings</h2>
+<form novalidate [formGroup]="settingForm" (ngSubmit)="saveSetting()">
+<mat-dialog-content >
+    <mat-form-field  appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="string" formControlName="name">
+    </mat-form-field>
+    <mat-form-field  appearance="fill">
+        <mat-label>Map Type</mat-label>
+        <mat-select formControlName="type">
+            <mat-option *ngFor="let type of eMapType | keyvalue" [value]="type.value">{{type.key}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field  appearance="fill">
+        <mat-label>Map API Key</mat-label>
+        <input matInput type="string" formControlName="mapKey">
+    </mat-form-field>
+    <mat-form-field  appearance="fill">
+        <mat-label>Venue Project Key</mat-label>
+        <input matInput type="string" formControlName="venueKey">
+    </mat-form-field>
+    <mat-form-field  appearance="fill">
+        <mat-label>Map/Venue Id</mat-label>
+        <input matInput type="string" formControlName="mapId">
+    </mat-form-field>
+    <mat-form-field  appearance="fill">
+        <mat-label>Default Zoom</mat-label>
+        <input matInput type="number" formControlName="defaultZoom">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button [mat-dialog-close]="setting"
+    [disabled]="(settingForm.valid && !settingForm.dirty) || settingForm.invalid"
+    type="submit" matTooltip="Save {{setting.name}} Map Settings" mat-button color="primary" >
+        <mat-icon>save</mat-icon>
+    </button>
+</mat-dialog-actions>
+</form>

@@ -1,0 +1,27 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+
+        {{widget.name}}
+
+        <div fxFlex fxLayout fxLayoutAlign="flex-end">
+
+            <button mat-button>
+                <mat-icon class="drag-handler">open_with</mat-icon>
+            </button>
+
+            <button mat-button (mousedown)="onOpenSetting($event)">
+                <mat-icon>settings</mat-icon>
+            </button>
+
+            <button mat-button (mousedown)="removeItem()">
+                <mat-icon>delete</mat-icon>
+            </button>
+
+        </div>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+<div #map style="background-color: lightcyan;"
+[style.height.px]="widget.size.height - 64"
+[style.width.px]="widget.size.width" >
+</div>
