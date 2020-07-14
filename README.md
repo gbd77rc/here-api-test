@@ -6,5 +6,3 @@ To get it running you will need to do the following.
 
     npm install
     npm start
-
-Once site is loaded then  
