@@ -30,8 +30,8 @@ export class SeshatData implements InMemoryDbService {
                         "componentRef" : "here-map-widget",
                         "dataConfig" : {
                             "mapId" : "26670",
-                            "type" : "map",
-                            "defaultZoom" : 5,
+                            "type" : "venue",
+                            "defaultZoom" : 20,
                             "mapKey" : "",
                             "venueKey" : ""
                         },

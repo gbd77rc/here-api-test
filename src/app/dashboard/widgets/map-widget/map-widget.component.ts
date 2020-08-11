@@ -61,7 +61,7 @@ export class MapWidgetComponent extends WidgetBase  implements OnInit, OnChanges
         console.log("4: initializedPlatform", this._herePlatform)
         if (this.setting.mapKey){
             this._herePlatform = new H.service.Platform({
-                "apiKey": this.setting.mapKey
+                "apiKey": this.setting.venueKey
             });
         }
         console.log("4: initializedPlatform exit - ", this._herePlatform)
@@ -97,14 +97,15 @@ export class MapWidgetComponent extends WidgetBase  implements OnInit, OnChanges
             });
             this._venueProvider = new H.venues.Provider();
             this._hereVenueService.loadVenue(this.setting.mapId).then((venue)=>{
-                this._venueProvider.addView(venue);
+                this._venueProvider.addVenue(venue);
                 this._venueProvider.setActiveVenue(venue);
                 this.map.addLayer(new H.map.layer.TileLayer(
                     this._venueProvider
                 ));
                 this.map.setCenter(venue.getCenter());
                 this.map.setZoom(this.setting.defaultZoom);
-                console.log("6: initializeVenue ", this._venueProvider, venue);
+                this.map.getViewPort().resize();
+                console.log("6: initializeVenue Loaded", venue, this._venueProvider);
             });
         }
         console.log("6: initializeVenue exit - ", this._hereVenueService);
